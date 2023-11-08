@@ -26,8 +26,8 @@
       </div>
     </form>
     <div class="row pt-4 justify-content-center">
-      <p class="text-center fs-3">Solução</p>
-      <div class="col-4 text-center border p-3 rounded">
+      <p class="text-center fs-2">Solução</p>
+      <div class="col-4 text-center border p-3 rounded fs-3 text-success">
         19 + 20 = 39
       </div>
     </div>
