@@ -1,4 +1,30 @@
 <script setup>
+  import { reactive } from 'vue';
+  import inputNumber from './components/InputNumber.vue';
+
+  const estado = reactive({
+    numero1: "",
+    numero2: "",
+    operacao: "soma",
+    resultado: ""
+  })
+
+  function calcular() {
+    switch (estado.operacao) {
+      case "soma":
+        estado.resultado = parseFloat(estado.numero1) + parseFloat(estado.numero2);
+        return estado.resultado;
+      case "subtracao":
+        estado.resultado = parseFloat(estado.numero1) - parseFloat(estado.numero2);
+        return estado.resultado;
+      case "multiplicacao":
+        estado.resultado = parseFloat(estado.numero1) * parseFloat(estado.numero2);
+        return estado.resultado;
+      case "divisao":
+        estado.resultado = parseFloat(estado.numero1) / parseFloat(estado.numero2);
+        return estado.resultado;
+    }
+  }
 
 </script>
 
@@ -9,26 +35,24 @@
     </header>
     <form>
       <div class="row pt-4">
-        <div class="col">
-          <input type="number" placeholder="Digite um número" class="p-2 rounded-3 form-control">
-        </div>
-        <div class="col-md-1">
-          <select class="form-control text-center">
-            <option value="soma">+</option>
+        <inputNumber @keyup="evento => estado.numero1 = evento.target.value" />
+        <div class="col-md-2">
+          <select class="form-control text-center" @change="evento => estado.operacao = evento.target.value">
+            <option value="soma" selected>+</option>
             <option value="subtracao">-</option>
-            <option value="divisao">*</option>
-            <option value="multiplicacao">/</option>
+            <option value="multiplicacao">*</option>
+            <option value="divisao">/</option>
           </select>
         </div>
         <div class="col">
-          <input type="number" placeholder="Digite um número" class="p-2 rounded-3 form-control">
+          <inputNumber @keyup="evento => estado.numero2 = evento.target.value" />
         </div>
       </div>
     </form>
     <div class="row pt-4 justify-content-center">
       <p class="text-center fs-2">Solução</p>
-      <div class="col-4 text-center border p-3 rounded fs-3 text-success">
-        19 + 20 = 39
+      <div class="col-4 text-center border p-3 rounded fs-3 text-success text-end overflow-hidden">
+        {{ calcular() }}
       </div>
     </div>
   </div>
